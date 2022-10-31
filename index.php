@@ -33,11 +33,11 @@ $offset += $interval;
 }
 }
 
-$out = (getMp3StreamTitle('http://localhost:port/mount', 8192));
+$out = (getMp3StreamTitle('http://65.108.202.157:1000/radio.mp3', 8192));
 
 
 $clean = str_replace(' ', '-', $out);
-$exo = explode('-', $out);
+$exo = explode('-', $out, 2);
  
 //$result = curl_exec($ch);
 
@@ -48,18 +48,28 @@ $parsedFile = json_decode($file);
 $albumart = $parsedFile->data[0]->album->cover_xl; 
 $artist =  $parsedFile->data[0]->artist->name;
 $title =  $parsedFile->data[0]->title;
+$duration =  $parsedFile->data[0]->duration;
 
 $dir = dirname(__FILE__).'/cover/'.$artist.'_'.$title.'.jpg'; 
+$dir = str_replace(' ', '-', $dir);
+$dir = str_replace(',', '-', $dir);
 $dir2 = dirname(__FILE__).'/cover/'.$artist.'_'.$title.'.png'; 
 file_put_contents($dir, file_get_contents($albumart)); 
 file_put_contents($dir2, file_get_contents($albumart)); 
 
+
+
 $yeet2 = 'https://api.streamafrica.net/boxradio/web/nowplaying/cover/'.$artist.'_'.$title.'.jpg';
+$yeet2 = str_replace(' ', '-', $yeet2);
+$yeet2 = str_replace(',', '-', $yeet2);
 
 $array['artist'] = $exo[0];
 $array['song']= $exo[1];
 $array['artwork']=$yeet2;
-$array['rand']=$query;
+$array['artworkCDN']=$albumart;
+$array['duration']=gmdate("i:s", $duration);
+
+//$array['res.artist']=$artist;
 
 $urlHost = $_SERVER['HTTP_HOST'];
 
