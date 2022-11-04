@@ -91,12 +91,9 @@ file_put_contents($dir, file_get_contents($albumart));
 file_put_contents($dir3, file_get_contents($next_artwork));
 
 
-//$yeet2 = 'https://covers.streamafrica.net/' . $artist . '-' . $title . '-' . $radioname . '.png';
+
 $yeet2 = 'https://covers.streamafrica.net/' . $next_artist . '-' . $next_title . '-' . $nextsongdl . '.jpg';
 $yeet1 = 'https://covers.streamafrica.net/' . $artist . '-' . $title . '-' . $radioname . '.jpg';
-//$yeet3 = 'https://covers.streamafrica.net/' . $artist . '-' . $title . '-' . $radioname . '.png';
-//$yeet3 = str_replace(',', '-', $yeet3);
-//$yeet3 = str_replace(' ', '-', $yeet3);
 $yeet1 = str_replace(' ', '-', $yeet1);
 $yeet1 = str_replace(',', '-', $yeet1);
 $yeet2 = str_replace(' ', '-', $yeet2);
@@ -127,22 +124,7 @@ $dbname      = "dbname = hellodb";
 $credentials = "user = hellodb password=hellodb";
 
 $db = pg_connect( "$host $port $dbname $credentials"  );
-// if(!$db) {
-//     echo "Error : Unable to open database\n";
-// } else {
-//     echo "Opened database successfully\n";
-// }
 
-// //   $sql =<<<EOF
-// //       CREATE TABLE SONGS
-// //       (ARTIST TEXT PRIMARY KEY     NOT NULL,
-// //       SONG           TEXT    NOT NULL,
-// //       ALBUM            TEXT     NOT NULL,
-// //       ARTWORK        TEXT  NOT NULL,
-// //       SONG_TEXT  TEXT  NOT NULL,
-// //       ARTWORK_CDN  TEXT  NOT NULL,
-// //       GENRE TEXT NOT NULL);
-// // EOF;
 
 
 $sql = <<<EOF
@@ -152,16 +134,8 @@ VALUES ('$icecast_api_nowplaying_artist','$icecast_api_nowplaying_song','$curren
 EOF;
 $ret = pg_query($db, $sql);
 
-// $ret2 = pg_query($sql2);
-
-
-// $postgreserror = pg_last_error($db);
-
 $hand = pg_last_error($db);
 
-//   $sql2 =<<<EOF
-//       SELECT * from songs;
-// EOF;
 
 function errorpost (){
  if(!$ret) {
