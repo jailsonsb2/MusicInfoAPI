@@ -7,13 +7,13 @@ $icecasturl = "http://65.108.202.157:1000";
 
 $icecast_api = "$icecasturl/status-json.xsl";
 
-//s$query = 'https://api.deezer.com/search?q='.urlencode($icecast_api_nowplaying_text);
-
 $azura = "http://exclusive.streamafrica.net/api/nowplaying/48";
 
 $radioname = "box_lofi";
 
 
+
+#uncomment the function below if you can use explode
 // function getMp3StreamTitle($streamingUrl, $interval, $offset = 0, $headers = true)
 // {
 //     $needle = 'StreamTitle=';
