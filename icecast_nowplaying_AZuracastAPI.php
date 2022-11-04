@@ -1,13 +1,13 @@
 <?php
 
 
-$icecasturl = "http://65.108.202.157:1000";
+$icecasturl = "http://example.com:8000";
 
 
 
 $icecast_api = "$icecasturl/status-json.xsl";
 
-$azura = "http://exclusive.streamafrica.net/api/nowplaying/48";
+$azura = "http://AZURACAST_DOMAIN/api/nowplaying/48";
 
 $radioname = "box_lofi";
 
