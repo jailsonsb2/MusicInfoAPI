@@ -50,12 +50,8 @@ $json = json_encode(array(
     'data' => $array
 ));
 
-$king = (file_put_contents("search.json", $json));
-
 $error_array = ['data' => "404 Entity Not Found"];
 $empty_array = ['data' => "291 Invalid Query Params."];
-
-$rnd = rand(000000000, 99999999);
 
 if ($error == '0')
 {
@@ -73,7 +69,6 @@ else
 }
 
 header('Access-Control-Allow-Origin: *');
-header_remove("server: $rnd");
 header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: GET');
 header("Access-Control-Allow-Headers: X-Requested-With");
