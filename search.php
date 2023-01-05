@@ -1,113 +1,75 @@
 <?php
 
-$qr = filter_input(INPUT_GET, "query");
+header('Content-Type: application/json');
 
-$FilterReplace = str_replace([".mp3", ".aac", ".wav"], "", $qr);
 
-// Deezer
-$itunes =
-    "https://itunes.apple.com/search?term=" .
-    urlencode($FilterReplace) .
-    "&media=music&limit=1";
-$query = "https://api.deezer.com/search?q=" . urlencode($FilterReplace);
-$file = file_get_contents($query);
-$parsedFile = json_decode($file);
-$itunesfg = file_get_contents($itunes);
-$iTunesJsonDecode = json_decode($itunesfg);
-$iTunesParseGenre = $iTunesJsonDecode->results[0]->primaryGenreName;
-$iTunesParseArtist = $iTunesJsonDecode->results[0]->artistName;
-$iTunesParseTrack = $iTunesJsonDecode->results[0]->trackName;
-$iTunesParseAlbum = $iTunesJsonDecode->results[0]->collectionName;
-$iTunesParseDuration = $iTunesJsonDecode->results[0]->trackTimeMillis;
-$iTunesDownloadArtwork = $iTunesJsonDecode->results[0]->artworkUrl100;
-$iTunesTrackId = $iTunesJsonDecode->results[0]->collectionId;
-$itunesNull = $iTunesJsonDecode->resultCount;
-$albumart = $parsedFile->data[0]->album->cover_xl;
-$albumy = $parsedFile->data[0]->album->title;
-$artist = $parsedFile->data[0]->artist->name;
-$title = $parsedFile->data[0]->title;
-$DeezerStreamUrl = $parsedFile->data[0]->link;
-$duration = $parsedFile->data[0]->duration;
-$id = $parsedFile->data[0]->album->md5_image;
-$error = $parsedFile->total;
+$ApiType = "deezer";
 
-$iTunesArt = str_replace(
-    "100x100bb.jpg",
-    "1000x1000bb.jpg",
-    $iTunesDownloadArtwork
-);
+$GetDataInput = filter_input(INPUT_GET, 'query');
 
-$directory = "/www/wwwroot/covers.streamafrica.net/";
 
-$dir = $directory . "/web/" . $id . ".jpg";
-$dir2 = $directory . "/web/" . $iTunesTrackId . ".jpg";
+$FilterReplace = str_replace(array('.mp3', '.aac', '.wav'), '', $GetDataInput);
 
-$filename2 = $id . ".jpg";
-$filenameitunes = $iTunesTrackId . ".jpg";
-file_put_contents($dir, file_get_contents($albumart));
-file_put_contents($dir2, file_get_contents($iTunesArt));
 
-$UploadArtwork1 = "https://covers.streamafrica.net/$filename2";
-$UploadArtwork2 = "https://covers.streamafrica.net/$filenameitunes";
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, "https://apps.streamafrica.net/covers/api.php");
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-curl_setopt($ch, CURLOPT_POSTFIELDS, [
-    "uploaded_file" => new CURLFile($dir),
-]);
-curl_setopt($ch, CURLOPT_POSTFIELDS, [
-    "uploaded_file" => new CURLFile($dir2),
-]);
+function getDeezer($DataInput){
+    $url = 'https://api.deezer.com/search?q=' . urlencode($DataInput);
+    $FGC = file_get_contents($url);
+    $JSD = json_decode($FGC);
+    $Artwork = $JSD
+        ->data[0]->album->cover_xl;
+    $Title = $JSD
+        ->data[0]->title;
+    $Artist = $JSD
+        ->data[0]->artist->name;
+    $Album = $JSD
+        ->data[0]->album->title;
+    $Duration =$JSD
+        ->data[0]->duration;
 
-$response = curl_exec($ch);
+    $DeezerArray ['results'] = ["artist"=>$Artist, "title"=>$Title, "album"=>$Album, "artwork"=>$Artwork, "time"=>gmdate("i:s", $Duration)];
 
-curl_close($ch);
+    $EncodeArray = json_encode($DeezerArray);
 
-$dr = gmdate("i:s", $duration);
-
-$array["results"] = [
-    "artist" => $artist,
-    "track" => $title,
-    "artwork" => $UploadArtwork1,
-    "album" => $albumy,
-    "genre" => $iTunesParseGenre,
-    "duration" => $dr,
-];
-
-$array2["results"] = [
-    "artist" => $artist,
-    "track" => $title,
-    "artwork" => $UploadArtwork1,
-    "album" => $albumy,
-    "genre" => "unavailable",
-    "duration" => $dr,
-];
-
-$array["results2"] = [
-    "artist" => $iTunesParseArtist,
-    "track" => $iTunesParseTrack,
-    "artwork" => $UploadArtwork2,
-    "album" => $iTunesParseAlbum,
-    "genre" => $iTunesParseGenre,
-    "duration" => gmdate("i:s", $iTunesParseDuration),
-];
-
-$error_array = ["data" => "404 Entity Not Found"];
-$empty_array = ["data" => "403 Invalid Query Paramameters"];
-
-if ($error == "0") {
-    echo json_encode($array3);
-} elseif ($itunesNull == "0") {
-    echo json_encode($array2);
-} elseif (empty($qr)) {
-    echo json_encode($empty_array);
-} else {
-    print_r(json_encode($array));
+    return $EncodeArray;
 }
 
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json");
-header("Access-Control-Allow-Methods: GET");
-header("Access-Control-Allow-Headers: X-Requested-With");
+
+
+function getiTunes($DataInputItunes){
+    $url = 'https://itunes.apple.com/search?term=' . urlencode($DataInputItunes) . '&media=music&limit=1';
+    $FGC = file_get_contents($url);
+    $JSD = json_decode($FGC);
+    $Artwork100 = $JSD
+        ->results[0]->artworkUrl100;
+    $Title = $JSD
+        ->results[0]->trackCensoredName;
+    $Artist = $JSD
+        ->results[0]->artistName;
+    $Album = $JSD
+        ->results[0]->collectionCensoredName;
+    $Duration =$JSD
+        ->results[0]->trackTimeMillis;
+
+    $ChangeArtworkSize = str_replace('100x100bb.jpg','1000x1000bb.jpg', $Artwork100);
+
+    $ItunesArray ['results'] = ["artist"=>$Artist, "title"=>$Title, "album"=>$Album, "artwork"=>$ChangeArtworkSize, "time"=>gmdate("i:s", $Duration)];
+
+    $EncodeArray = json_encode($ItunesArray);
+
+    return $EncodeArray;
+}
+
+
+if ($ApiType == "deezer") {
+    echo getDeezer($FilterReplace);
+} elseif ($ApiType == "itunes") {
+    echo getiTunes($FilterReplace);
+}elseif (empty($GetDataInput)){
+    echo("Nothing Here");
+}
+else {
+    echo("Error, Select API Type.");
+}
+
+
