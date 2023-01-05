@@ -2,8 +2,7 @@
 
 header('Content-Type: application/json');
 
-
-$ApiType = "deezer";
+$ApiType = "itunes";
 
 $GetDataInput = filter_input(INPUT_GET, 'query');
 
@@ -11,27 +10,32 @@ $GetDataInput = filter_input(INPUT_GET, 'query');
 $FilterReplace = str_replace(array('.mp3', '.aac', '.wav'), '', $GetDataInput);
 
 
-
-function getDeezer($DataInput){
-    $url = 'https://api.deezer.com/search?q=' . urlencode($DataInput);
+function getDeezer($DataInputDeezer){
+    $url = 'https://api.deezer.com/search?q=' . urlencode($DataInputDeezer);
     $FGC = file_get_contents($url);
     $JSD = json_decode($FGC);
     $Artwork = $JSD
-        ->data[0]->album->cover_xl;
+    ->data[0]->album->cover_xl;
     $Title = $JSD
-        ->data[0]->title;
+    ->data[0]->title;
     $Artist = $JSD
-        ->data[0]->artist->name;
+    ->data[0]->artist->name;
     $Album = $JSD
-        ->data[0]->album->title;
+    ->data[0]->album->title;
     $Duration =$JSD
-        ->data[0]->duration;
-
+    ->data[0]->duration;
+    $Total = $JSD
+    ->total;
+    
     $DeezerArray ['results'] = ["artist"=>$Artist, "title"=>$Title, "album"=>$Album, "artwork"=>$Artwork, "time"=>gmdate("i:s", $Duration)];
-
+    
     $EncodeArray = json_encode($DeezerArray);
-
-    return $EncodeArray;
+    
+    if($Total == "0"){
+    return "Deezer Data Not Found";
+        
+    }
+    else return $EncodeArray;
 }
 
 
@@ -41,35 +45,37 @@ function getiTunes($DataInputItunes){
     $FGC = file_get_contents($url);
     $JSD = json_decode($FGC);
     $Artwork100 = $JSD
-        ->results[0]->artworkUrl100;
+    ->results[0]->artworkUrl100;
     $Title = $JSD
-        ->results[0]->trackCensoredName;
+    ->results[0]->trackCensoredName;
     $Artist = $JSD
-        ->results[0]->artistName;
+    ->results[0]->artistName;
     $Album = $JSD
-        ->results[0]->collectionCensoredName;
+    ->results[0]->collectionCensoredName;
     $Duration =$JSD
-        ->results[0]->trackTimeMillis;
-
+    ->results[0]->trackTimeMillis;
+    $Total = $JSD
+    ->resultCount;
+    
     $ChangeArtworkSize = str_replace('100x100bb.jpg','1000x1000bb.jpg', $Artwork100);
-
-    $ItunesArray ['results'] = ["artist"=>$Artist, "title"=>$Title, "album"=>$Album, "artwork"=>$ChangeArtworkSize, "time"=>gmdate("i:s", $Duration)];
-
+    
+      $ItunesArray ['results'] = ["artist"=>$Artist, "title"=>$Title, "album"=>$Album, "artwork"=>$ChangeArtworkSize, "time"=>gmdate("i:s", $Duration)];
+    
     $EncodeArray = json_encode($ItunesArray);
+    
+     if($Total == "0"){
+    return "Itunes Data Not Found";
+        
+    }
+    else return $EncodeArray;
 
-    return $EncodeArray;
 }
 
 
 if ($ApiType == "deezer") {
-    echo getDeezer($FilterReplace);
-} elseif ($ApiType == "itunes") {
-    echo getiTunes($FilterReplace);
-}elseif (empty($GetDataInput)){
-    echo("Nothing Here");
-}
-else {
-    echo("Error, Select API Type.");
+   echo getDeezer($FilterReplace);
 }
 
-
+elseif ($ApiType == "itunes") {
+echo getiTunes($FilterReplace);    // code...
+}
