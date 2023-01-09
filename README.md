@@ -7,28 +7,16 @@ i use Deezer API to retreive the cover Art.
 Just made it simple :)
 
 
-
-example in house use below.
-
-
-https://api.streamafrica.net/search.php?query="Joey B - Tonga"
-
-this should return..
-
-
+```JSON
+{
 "results": {
-"artist": "Joey B",
-"track": "Tonga",
-"text": "Joey B - Tonga",
-"artwork": "https://static-content.b-cdn.net/artwork/646f51e7bf9fc791775be55076ddd144.jpg?token=vHNG0osbNJLXdorNCwezVA&expires=1671750560",
-"album": "Tonga",
-"genre": "Afro House",
-"duration": "03:22"
-},
-"streaming": {
-"Apple": "https://music.apple.com/us/album/tonga-feat-sarkodie/808026797?i=808026804&uo=4",
-"Deezer": "https://www.deezer.com/track/74476735"
+"artist": "Chronic Law",
+"title": "Don't Call me Nuh Gangsta",
+"album": "Don't Call me Nuh Gangsta",
+"artwork": "https://e-cdns-images.dzcdn.net/images/cover/623c3cd769664e7ec729e5841ff76764/1000x1000-000000-80-0-0.jpg",
+"time": "03:20"
 }
 }
+```
 
-enjoy :)
+How to use it ? just download the php file into your server and do .... https://domain.com/search.php?query=Song-Title
