@@ -20,3 +20,16 @@ Just made it simple :)
 ```
 
 How to use it ? just download the php file into your server and do .... https://domain.com/search.php?query=Song-Title
+
+
+How to parse it in php.:).
+
+
+```php
+$EndPoint = "https://yourdomain.com/search.php?query=Song-Title";
+$FGC = json_decode(file_get_contents($EndPoint));
+$artist = $FGC->results->artist;
+
+echo($artist);
+
+```
