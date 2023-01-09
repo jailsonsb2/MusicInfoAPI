@@ -1,6 +1,9 @@
 <?php
 
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+
+
 // Select use deezer if you want or itunes.
 $ApiType = "itunes";
 
