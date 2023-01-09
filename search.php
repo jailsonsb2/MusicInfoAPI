@@ -1,15 +1,16 @@
 <?php
 
 header('Content-Type: application/json');
-
+// Select use deezer if you want or itunes.
 $ApiType = "itunes";
 
+//Input data query.
 $GetDataInput = filter_input(INPUT_GET, 'query');
 
-
+//Replace trash lol
 $FilterReplace = str_replace(array('.mp3', '.aac', '.wav'), '', $GetDataInput);
 
-
+// Deezer API function
 function getDeezer($DataInputDeezer){
     $url = 'https://api.deezer.com/search?q=' . urlencode($DataInputDeezer);
     $FGC = file_get_contents($url);
@@ -39,7 +40,7 @@ function getDeezer($DataInputDeezer){
 }
 
 
-
+// Itunes API Function.
 function getiTunes($DataInputItunes){
     $url = 'https://itunes.apple.com/search?term=' . urlencode($DataInputItunes) . '&media=music&limit=1';
     $FGC = file_get_contents($url);
@@ -71,6 +72,8 @@ function getiTunes($DataInputItunes){
 
 }
 
+
+// Selection Handling.
 
 if ($ApiType == "deezer") {
    echo getDeezer($FilterReplace);
