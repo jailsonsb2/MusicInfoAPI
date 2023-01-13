@@ -10,11 +10,13 @@ Just made it simple :)
 ```JSON
 {
 "results": {
-"artist": "Chronic Law",
-"title": "Don't Call me Nuh Gangsta",
-"album": "Don't Call me Nuh Gangsta",
-"artwork": "https://e-cdns-images.dzcdn.net/images/cover/623c3cd769664e7ec729e5841ff76764/1000x1000-000000-80-0-0.jpg",
-"time": "03:20"
+"artist": "Migos",
+"track": "Walk It Talk It",
+"text": "Migos - Walk It Talk It",
+"artwork": "https://cn49wdcszwji8n4.gcws.cloud/TWlnb3MgLSBXYWxrIEl0IFRhbGsgSXQ=",
+"album": "Culture II",
+"genre": "Hip-Hop/Rap",
+"duration": "04:36"
 }
 }
 ```
