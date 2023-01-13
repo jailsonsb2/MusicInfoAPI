@@ -33,6 +33,8 @@ $EndPoint = "https://yourdomain.com/search.php?query=Song-Title";
 $FGC = json_decode(file_get_contents($EndPoint));
 $artist = $FGC->results->artist;
 
+
+// This Prints Out The Artist Name
 echo($artist);
 
 ```
