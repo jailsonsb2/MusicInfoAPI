@@ -2,7 +2,8 @@ A simple Cover Art API I wrote in PHP.
 
 Sorry for messy code i am a noob in PHP :(
 
-i use Deezer API to retreive the cover Art.
+i use Deezer API or Apple Music. to retreive the Song Info.
+ Spotify Version Coming Soon.
 
 Just made it simple :)
 
