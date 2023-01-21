@@ -1,4 +1,4 @@
-A simple Cover Art API I wrote in PHP.
+A Music Info API I wrote in PHP.
 
 Sorry for messy code i am a noob in PHP :(
 
