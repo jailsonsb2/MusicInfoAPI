@@ -4,13 +4,13 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
 
-// Select use deezer if you want or itunes.
+// deezer or itunes.
 $ApiType = "itunes";
 
 //Input data query.
 $GetDataInput = filter_input(INPUT_GET, 'query');
 
-//Replace trash lol
+//Remove Any Filename if it ends with any audio mime type
 $FilterReplace = str_replace(array('.mp3', '.aac', '.wav'), '', $GetDataInput);
 
 // Deezer API function
