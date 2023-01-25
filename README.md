@@ -32,6 +32,7 @@ How to parse it in php.:).
 <?php
 $EndPoint = "https://yourdomain.com/search.php?query=Song-Title";
 $FGC = json_decode(file_get_contents($EndPoint));
+// get artist name from the json.
 $artist = $FGC->results->artist;
 
 
