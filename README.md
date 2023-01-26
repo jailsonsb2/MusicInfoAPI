@@ -2,10 +2,10 @@ A Music Info API I wrote in PHP.
 
 Sorry for messy code i am a noob in PHP :(
 
-i use Deezer API or Apple Music. to retreive the Song Info.
- Spotify Version Coming Soon.
+i use Deezer API / Apple Music API / Spotify API
 
-Just made it simple :)
+visit : https://developer.spotify.com/dashboard/ 
+to create your client ID & Client Secret
 
 
 
@@ -26,7 +26,6 @@ Just made it simple :)
 How to use it ? just download the php file into your server and do .... https://domain.com/search.php?query=Song-Title
 
 
-<h1>How to parse result in PHP<h1/>
 
 
 ```php
