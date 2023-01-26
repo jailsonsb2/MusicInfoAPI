@@ -5,7 +5,7 @@ Sorry for messy code i am a noob in PHP :(
 i use Deezer API / Apple Music API / Spotify API
 
 visit : https://developer.spotify.com/dashboard/ 
-to create your client ID & Client Secret
+to create your client ID & Client Secret if you want to use spotify API.
 
 
 
