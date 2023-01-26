@@ -8,6 +8,7 @@ i use Deezer API or Apple Music. to retreive the Song Info.
 Just made it simple :)
 
 
+
 ```JSON
 {
 "results": {
@@ -25,7 +26,7 @@ Just made it simple :)
 How to use it ? just download the php file into your server and do .... https://domain.com/search.php?query=Song-Title
 
 
-How to parse it in php.:).
+<h1>How to parse result in PHP<h1/>
 
 
 ```php
