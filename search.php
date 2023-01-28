@@ -56,6 +56,10 @@ function getSpotify($SpotifyInputData)
         ->tracks
         ->items[0]
         ->artists[0]->name;
+     $TrackName = $JSD
+        ->tracks
+        ->items[0]
+        ->name;
     $Duration = $JSD
         ->tracks
         ->items[0]->duration_ms;
@@ -64,7 +68,7 @@ function getSpotify($SpotifyInputData)
         ->items[0]
         ->external_urls->spotify;
 
-    $JsonArray[results] = ['artist' => $Artist, 'artwork' => $Artwork, 'album' => $Album, 'duration_ms' => $Duration, 'stream_url' => $Stream];
+    $JsonArray[results] = ['artist' => $Artist, 'title' => $TrackName, 'artwork' => $Artwork, 'album' => $Album, 'duration_ms' => $Duration, 'stream_url' => $Stream];
     curl_close($curl);
 
     return (json_encode($JsonArray));
