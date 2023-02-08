@@ -27,6 +27,7 @@ How to use it ? just download the php file into your server and do .... https://
 
 
 
+<h1>How to parse the api data in PHP</h1>
 
 ```php
 <?php
