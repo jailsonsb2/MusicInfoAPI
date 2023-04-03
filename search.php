@@ -68,7 +68,7 @@ function getSpotify($SpotifyInputData)
         ->items[0]
         ->external_urls->spotify;
 
-    $JsonArray[results] = ['artist' => $Artist, 'title' => $TrackName, 'artwork' => $Artwork, 'album' => $Album, 'duration_ms' => $Duration, 'stream_url' => $Stream];
+    $JsonArray[results] = array('artist' => $Artist, 'title' => $TrackName, 'artwork' => $Artwork, 'album' => $Album, 'duration_ms' => $Duration, 'stream_url' => $Stream);
     curl_close($curl);
 
     return (json_encode($JsonArray));
@@ -91,7 +91,7 @@ function getDeezer($DataInputDeezer)
     $Duration = $JSD->data[0]->duration;
     $Total = $JSD->total;
 
-    $DeezerArray['results'] = ["artist" => $Artist, "title" => $Title, "album" => $Album, "artwork" => $Artwork, "time" => gmdate("i:s", $Duration) ];
+    $DeezerArray['results'] = array("artist" => $Artist, "title" => $Title, "album" => $Album, "artwork" => $Artwork, "time" => gmdate("i:s", $Duration) );
 
     $EncodeArray = json_encode($DeezerArray);
 
@@ -118,7 +118,7 @@ function getiTunes($DataInputItunes)
 
     $ChangeArtworkSize = str_replace('100x100bb.jpg', '1000x1000bb.jpg', $Artwork100);
 
-    $ItunesArray['results'] = ["artist" => $Artist, "title" => $Title, "album" => $Album, "artwork" => $ChangeArtworkSize, "time" => gmdate("i:s", $Duration) ];
+    $ItunesArray['results'] = array("artist" => $Artist, "title" => $Title, "album" => $Album, "artwork" => $ChangeArtworkSize, "time" => gmdate("i:s", $Duration) );
 
     $EncodeArray = json_encode($ItunesArray);
 
