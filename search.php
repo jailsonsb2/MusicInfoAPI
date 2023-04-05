@@ -116,7 +116,7 @@ function getiTunes($DataInputItunes)
     $Duration = $JSD->results[0]->trackTimeMillis;
     $Total = $JSD->resultCount;
 
-    $ChangeArtworkSize = str_replace('100x100bb.jpg', '1000x1000bb.jpg', $Artwork100);
+    $ChangeArtworkSize = str_replace('100x100bb.jpg', '700x700bb.jpg', $Artwork100);
 
     $ItunesArray['results'] = array("artist" => $Artist, "title" => $Title, "album" => $Album, "artwork" => $ChangeArtworkSize, "time" => gmdate("i:s", $Duration) );
 
