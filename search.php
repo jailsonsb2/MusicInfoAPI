@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
-// deezer or itunes or spotify
+// deezer, itunes, spotify or azuracast.
 $ApiType = "deezer";
 
 //Input data query.
@@ -14,6 +14,30 @@ $FilterReplace = str_replace(array(
     '.aac',
     '.wav'
 ) , '', $GetDataInput);
+
+function getAzuracast()
+{
+    // put your azuracast now playing api url here. eg. https://domain.com/api/nowplaying/1
+    $API_URL = '';
+    $FCG = json_decode(file_get_contents($API_URL));
+    $artist = $FCG
+        ->now_playing
+        ->song->artist;
+    $track = $FCG
+        ->now_playing
+        ->song->title;
+    $artwork = $FCG
+        ->now_playing
+        ->song->art;
+
+    $array = array(
+        'artist' => $artist,
+        'title' => $track,
+        'artwork' => $artwork
+    );
+
+    return json_encode($array);
+}
 
 // Spotify API Function
 function getSpotify($SpotifyInputData)
@@ -56,10 +80,9 @@ function getSpotify($SpotifyInputData)
         ->tracks
         ->items[0]
         ->artists[0]->name;
-     $TrackName = $JSD
+    $TrackName = $JSD
         ->tracks
-        ->items[0]
-        ->name;
+        ->items[0]->name;
     $Duration = $JSD
         ->tracks
         ->items[0]->duration_ms;
@@ -68,7 +91,14 @@ function getSpotify($SpotifyInputData)
         ->items[0]
         ->external_urls->spotify;
 
-    $JsonArray[results] = array('artist' => $Artist, 'title' => $TrackName, 'artwork' => $Artwork, 'album' => $Album, 'duration_ms' => $Duration, 'stream_url' => $Stream);
+    $JsonArray[results] = array(
+        'artist' => $Artist,
+        'title' => $TrackName,
+        'artwork' => $Artwork,
+        'album' => $Album,
+        'duration_ms' => $Duration,
+        'stream_url' => $Stream
+    );
     curl_close($curl);
 
     return (json_encode($JsonArray));
@@ -91,7 +121,13 @@ function getDeezer($DataInputDeezer)
     $Duration = $JSD->data[0]->duration;
     $Total = $JSD->total;
 
-    $DeezerArray['results'] = array("artist" => $Artist, "title" => $Title, "album" => $Album, "artwork" => $Artwork, "time" => gmdate("i:s", $Duration) );
+    $DeezerArray['results'] = array(
+        "artist" => $Artist,
+        "title" => $Title,
+        "album" => $Album,
+        "artwork" => $Artwork,
+        "time" => gmdate("i:s", $Duration)
+    );
 
     $EncodeArray = json_encode($DeezerArray);
 
@@ -118,7 +154,13 @@ function getiTunes($DataInputItunes)
 
     $ChangeArtworkSize = str_replace('100x100bb.jpg', '700x700bb.jpg', $Artwork100);
 
-    $ItunesArray['results'] = array("artist" => $Artist, "title" => $Title, "album" => $Album, "artwork" => $ChangeArtworkSize, "time" => gmdate("i:s", $Duration) );
+    $ItunesArray['results'] = array(
+        "artist" => $Artist,
+        "title" => $Title,
+        "album" => $Album,
+        "artwork" => $ChangeArtworkSize,
+        "time" => gmdate("i:s", $Duration)
+    );
 
     $EncodeArray = json_encode($ItunesArray);
 
@@ -146,5 +188,10 @@ elseif ($ApiType == "itunes")
 elseif ($ApiType == "spotify")
 {
     echo getSpotify($FilterReplace);
+}
+
+elseif ($ApiType == "azuracast")
+{
+    echo getAzuracast();
 }
 
