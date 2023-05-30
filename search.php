@@ -30,7 +30,7 @@ function getAzuracast()
         ->now_playing
         ->song->art;
 
-    $array = array(
+    $array['results'] = array(
         'artist' => $artist,
         'title' => $track,
         'artwork' => $artwork
