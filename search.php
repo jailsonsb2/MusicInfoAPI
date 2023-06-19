@@ -173,8 +173,13 @@ function getiTunes($DataInputItunes)
 
 }
 
+
+if (empty($GetDataInput)) {
+    echo json_encode(array('Error' => 'Empty Query Parameters'));
+}
+
 // Selection Handling.
-if ($ApiType == "deezer")
+elseif ($ApiType == "deezer")
 {
     echo getDeezer($FilterReplace);
 }
