@@ -41,3 +41,6 @@ $artist = $FGC->results->artist;
 echo($artist);
 
 ```
+
+<h1>Requirements</h1>
+PHP 7.4 Or Above
