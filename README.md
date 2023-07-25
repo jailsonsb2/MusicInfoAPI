@@ -15,7 +15,7 @@ to create your client ID & Client Secret if you want to use spotify API.
 "artist": "Migos",
 "track": "Walk It Talk It",
 "text": "Migos - Walk It Talk It",
-"artwork": "https://cn49wdcszwji8n4.gcws.cloud/c8b8b7f6c9196a340563380776ecc407",
+"artwork": "https://icdn2.streamafrica.net/stacks/6c9ddfcf.jpg",
 "album": "Culture II",
 "genre": "Hip-Hop/Rap",
 "duration": "04:36"
