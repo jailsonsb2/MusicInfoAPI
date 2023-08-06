@@ -91,7 +91,7 @@ function getSpotify($SpotifyInputData)
         ->items[0]
         ->external_urls->spotify;
 
-    $JsonArray[results] = array(
+    $JsonArray['results'] = array(
         'artist' => $Artist,
         'title' => $TrackName,
         'artwork' => $Artwork,
