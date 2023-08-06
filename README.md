@@ -43,4 +43,4 @@ echo($artist);
 ```
 
 <h1>Requirements</h1>
-PHP 7.4 Or Above
+PHP 7.4 & Up.
