@@ -131,7 +131,7 @@ function getDeezer($DataInputDeezer)
 
     $EncodeArray = json_encode($DeezerArray);
 
-    if ($Total == "0")
+    if ($Total === "0")
     {
         return "Deezer Data Not Found";
 
@@ -179,23 +179,23 @@ if (empty($GetDataInput)) {
 }
 
 // Selection Handling.
-elseif ($ApiType == "deezer")
+elseif ($ApiType === "deezer")
 {
     echo getDeezer($FilterReplace);
 }
 
-elseif ($ApiType == "itunes")
+elseif ($ApiType === "itunes")
 {
     echo getiTunes($FilterReplace); // code...
     
 }
 
-elseif ($ApiType == "spotify")
+elseif ($ApiType === "spotify")
 {
     echo getSpotify($FilterReplace);
 }
 
-elseif ($ApiType == "azuracast")
+elseif ($ApiType === "azuracast")
 {
     echo getAzuracast();
 }
